@@ -143,7 +143,8 @@ public class OrderService {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found with id: " + orderId));
         
-        BigDecimal totalAmount = order.getOrderItems().stream()
+        List<OrderItem> orderItems = orderItemRepository.findByOrderId(orderId);
+        BigDecimal totalAmount = orderItems.stream()
                 .map(OrderItem::getSubtotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         
