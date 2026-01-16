@@ -44,12 +44,12 @@ public class ShoeController {
     }
 
     @PostMapping
-    public ResponseEntity<Shoe> createShoe(@RequestBody Shoe shoe) {
+    public ResponseEntity<?> createShoe(@RequestBody Shoe shoe) {
         try {
             Shoe createdShoe = shoeService.createShoe(shoe);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdShoe);
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }
 

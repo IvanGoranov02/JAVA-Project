@@ -29,12 +29,12 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Category> createCategory(@RequestBody Category category) {
+    public ResponseEntity<?> createCategory(@RequestBody Category category) {
         try {
             Category createdCategory = categoryService.createCategory(category);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdCategory);
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }
 

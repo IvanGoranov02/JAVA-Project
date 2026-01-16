@@ -1,0 +1,540 @@
+{
+	"info": {
+		"_postman_id": "shoe-warehouse-api",
+		"name": "Shoe Warehouse API",
+		"description": "Complete API collection for Shoe Warehouse Management System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "admin123",
+				"type": "string"
+			}
+		]
+	},
+	"item": [
+		{
+			"name": "Brands",
+			"item": [
+				{
+					"name": "Get All Brands",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/brands",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "brands"]
+						}
+					}
+				},
+				{
+					"name": "Get Brand by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/brands/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "brands", "1"]
+						}
+					}
+				},
+				{
+					"name": "Create Brand",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Nike\",\n  \"description\": \"Just Do It\",\n  \"country\": \"USA\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/brands",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "brands"]
+						}
+					}
+				},
+				{
+					"name": "Update Brand",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Nike Updated\",\n  \"description\": \"Updated description\",\n  \"country\": \"USA\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/brands/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "brands", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Brand",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/brands/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "brands", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Get All Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/categories",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "categories"]
+						}
+					}
+				},
+				{
+					"name": "Get Category by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/categories/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "categories", "1"]
+						}
+					}
+				},
+				{
+					"name": "Create Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Sneakers\",\n  \"description\": \"Casual footwear\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/categories",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "categories"]
+						}
+					}
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Sneakers Updated\",\n  \"description\": \"Updated description\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/categories/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "categories", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/categories/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "categories", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Shoes",
+			"item": [
+				{
+					"name": "Get All Shoes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/shoes",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "shoes"]
+						}
+					}
+				},
+				{
+					"name": "Get Shoe by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/shoes/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "shoes", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get Shoes by Brand",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/shoes/brand/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "shoes", "brand", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get Shoes by Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/shoes/category/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "shoes", "category", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get Low Stock Shoes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/shoes/low-stock/10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "shoes", "low-stock", "10"]
+						}
+					}
+				},
+				{
+					"name": "Create Shoe",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"model\": \"Air Max\",\n  \"size\": \"42\",\n  \"color\": \"Black\",\n  \"quantity\": 50,\n  \"price\": 120.00,\n  \"brand\": {\n    \"id\": 1\n  },\n  \"categories\": [\n    {\n      \"id\": 1\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/shoes",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "shoes"]
+						}
+					}
+				},
+				{
+					"name": "Update Shoe",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"model\": \"Air Max Updated\",\n  \"size\": \"43\",\n  \"color\": \"White\",\n  \"quantity\": 30,\n  \"price\": 130.00,\n  \"brand\": {\n    \"id\": 1\n  }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/shoes/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "shoes", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Shoe",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/shoes/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "shoes", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Suppliers",
+			"item": [
+				{
+					"name": "Get All Suppliers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/suppliers",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "suppliers"]
+						}
+					}
+				},
+				{
+					"name": "Get Supplier by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/suppliers/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "suppliers", "1"]
+						}
+					}
+				},
+				{
+					"name": "Create Supplier",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"ABC Suppliers\",\n  \"email\": \"info@abc.com\",\n  \"phone\": \"+359888123456\",\n  \"address\": \"Main Street 123\",\n  \"city\": \"Sofia\",\n  \"country\": \"Bulgaria\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/suppliers",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "suppliers"]
+						}
+					}
+				},
+				{
+					"name": "Update Supplier",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"ABC Suppliers Updated\",\n  \"email\": \"newemail@abc.com\",\n  \"phone\": \"+359888654321\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/suppliers/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "suppliers", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Supplier",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/suppliers/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "suppliers", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Get All Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/orders",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "orders"]
+						}
+					}
+				},
+				{
+					"name": "Get Order by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/orders/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "orders", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get Orders by Supplier",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/orders/supplier/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "orders", "supplier", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get Orders by Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/orders/status/PENDING",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "orders", "status", "PENDING"]
+						}
+					}
+				},
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"orderNumber\": \"ORD-001\",\n  \"orderDate\": \"2024-01-15T10:30:00\",\n  \"status\": \"PENDING\",\n  \"supplier\": {\n    \"id\": 1\n  },\n  \"orderItems\": [\n    {\n      \"shoe\": {\n        \"id\": 1\n      },\n      \"quantity\": 5,\n      \"unitPrice\": 120.00\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/orders",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "orders"]
+						}
+					}
+				},
+				{
+					"name": "Update Order",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"COMPLETED\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/orders/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "orders", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Order",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/orders/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "orders", "1"]
+						}
+					}
+				},
+				{
+					"name": "Add Order Item",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"shoe\": {\n    \"id\": 2\n  },\n  \"quantity\": 3,\n  \"unitPrice\": 100.00\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/orders/1/items",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "orders", "1", "items"]
+						}
+					}
+				},
+				{
+					"name": "Remove Order Item",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/orders/items/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "orders", "items", "1"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}

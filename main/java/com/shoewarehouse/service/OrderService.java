@@ -67,22 +67,33 @@ public class OrderService {
             order.setStatus(Order.OrderStatus.PENDING);
         }
         
-        Order savedOrder = orderRepository.save(order);
-        
+        // Set order reference on all order items before saving
         if (order.getOrderItems() != null && !order.getOrderItems().isEmpty()) {
-            BigDecimal totalAmount = BigDecimal.ZERO;
             for (OrderItem item : order.getOrderItems()) {
+                item.setOrder(order);
                 if (item.getShoe() != null && item.getShoe().getId() != null) {
                     Shoe shoe = shoeRepository.findById(item.getShoe().getId())
                             .orElseThrow(() -> new RuntimeException("Shoe not found with id: " + item.getShoe().getId()));
                     item.setShoe(shoe);
-                    item.setUnitPrice(shoe.getPrice());
+                    if (item.getUnitPrice() == null) {
+                        item.setUnitPrice(shoe.getPrice());
+                    }
                 }
-                item.setOrder(savedOrder);
+                if (item.getQuantity() == null) {
+                    throw new RuntimeException("Quantity is required for order item");
+                }
                 item.calculateSubtotal();
-                totalAmount = totalAmount.add(item.getSubtotal());
-                orderItemRepository.save(item);
             }
+        }
+        
+        // Save order (cascade will save order items)
+        Order savedOrder = orderRepository.save(order);
+        
+        // Calculate total amount after saving
+        if (savedOrder.getOrderItems() != null && !savedOrder.getOrderItems().isEmpty()) {
+            BigDecimal totalAmount = savedOrder.getOrderItems().stream()
+                    .map(OrderItem::getSubtotal)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
             savedOrder.setTotalAmount(totalAmount);
             savedOrder = orderRepository.save(savedOrder);
         }

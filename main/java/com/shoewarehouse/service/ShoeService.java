@@ -47,15 +47,25 @@ public class ShoeService {
     }
 
     public Shoe createShoe(Shoe shoe) {
-        if (shoe.getBrand() != null && shoe.getBrand().getId() != null) {
-            shoe.setBrand(brandRepository.findById(shoe.getBrand().getId())
-                    .orElseThrow(() -> new RuntimeException("Brand not found with id: " + shoe.getBrand().getId())));
+        // Validate required fields
+        if (shoe.getBrand() == null || shoe.getBrand().getId() == null) {
+            throw new RuntimeException("Brand is required");
         }
         
+        // Load and validate brand exists
+        shoe.setBrand(brandRepository.findById(shoe.getBrand().getId())
+                .orElseThrow(() -> new RuntimeException("Brand not found with id: " + shoe.getBrand().getId())));
+        
+        // Load and validate categories if provided
         if (shoe.getCategories() != null && !shoe.getCategories().isEmpty()) {
             List<Category> categories = shoe.getCategories().stream()
-                    .map(cat -> categoryRepository.findById(cat.getId())
-                            .orElseThrow(() -> new RuntimeException("Category not found with id: " + cat.getId())))
+                    .map(cat -> {
+                        if (cat.getId() == null) {
+                            throw new RuntimeException("Category ID is required");
+                        }
+                        return categoryRepository.findById(cat.getId())
+                                .orElseThrow(() -> new RuntimeException("Category not found with id: " + cat.getId()));
+                    })
                     .collect(Collectors.toList());
             shoe.setCategories(categories);
         }
