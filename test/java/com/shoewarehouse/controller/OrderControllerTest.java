@@ -22,7 +22,6 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -57,7 +56,7 @@ class OrderControllerTest {
         when(orderService.getAllOrders()).thenReturn(orders);
 
         mockMvc.perform(get("/api/orders")
-                        .with(httpBasic("admin", "admin123")))
+)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].orderNumber").value("ORD-001"));
 
@@ -70,7 +69,7 @@ class OrderControllerTest {
         when(orderService.getOrderById(1L)).thenReturn(Optional.of(order));
 
         mockMvc.perform(get("/api/orders/1")
-                        .with(httpBasic("admin", "admin123")))
+)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.orderNumber").value("ORD-001"));
 
@@ -84,7 +83,7 @@ class OrderControllerTest {
         when(orderService.getOrdersBySupplier(1L)).thenReturn(orders);
 
         mockMvc.perform(get("/api/orders/supplier/1")
-                        .with(httpBasic("admin", "admin123")))
+)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].orderNumber").value("ORD-001"));
 
@@ -98,7 +97,7 @@ class OrderControllerTest {
         when(orderService.getOrdersByStatus(Order.OrderStatus.PENDING)).thenReturn(orders);
 
         mockMvc.perform(get("/api/orders/status/PENDING")
-                        .with(httpBasic("admin", "admin123")))
+)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].orderNumber").value("ORD-001"));
 
@@ -111,7 +110,6 @@ class OrderControllerTest {
         when(orderService.createOrder(any(Order.class))).thenReturn(order);
 
         mockMvc.perform(post("/api/orders")
-                        .with(httpBasic("admin", "admin123"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(order)))
                 .andExpect(status().isCreated())
@@ -126,7 +124,6 @@ class OrderControllerTest {
         when(orderService.updateOrder(eq(1L), any(Order.class))).thenReturn(order);
 
         mockMvc.perform(put("/api/orders/1")
-                        .with(httpBasic("admin", "admin123"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(order)))
                 .andExpect(status().isOk())
@@ -141,7 +138,7 @@ class OrderControllerTest {
         doNothing().when(orderService).deleteOrder(1L);
 
         mockMvc.perform(delete("/api/orders/1")
-                        .with(httpBasic("admin", "admin123")))
+)
                 .andExpect(status().isNoContent());
 
         verify(orderService).deleteOrder(1L);
@@ -158,7 +155,6 @@ class OrderControllerTest {
         when(orderService.addOrderItem(eq(1L), any(OrderItem.class))).thenReturn(orderItem);
 
         mockMvc.perform(post("/api/orders/1/items")
-                        .with(httpBasic("admin", "admin123"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(orderItem)))
                 .andExpect(status().isCreated());
@@ -172,7 +168,7 @@ class OrderControllerTest {
         doNothing().when(orderService).removeOrderItem(1L);
 
         mockMvc.perform(delete("/api/orders/items/1")
-                        .with(httpBasic("admin", "admin123")))
+)
                 .andExpect(status().isNoContent());
 
         verify(orderService).removeOrderItem(1L);

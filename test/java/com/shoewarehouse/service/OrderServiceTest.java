@@ -125,7 +125,8 @@ class OrderServiceTest {
         Order result = orderService.createOrder(order);
 
         assertThat(result).isNotNull();
-        verify(orderRepository).save(any(Order.class));
+        // Order is saved twice: once with items, once with total amount
+        verify(orderRepository, times(2)).save(any(Order.class));
     }
 
     @Test
@@ -188,6 +189,8 @@ class OrderServiceTest {
 
     @Test
     void testRemoveOrderItem() {
+        // Set order on orderItem to avoid NullPointerException
+        orderItem.setOrder(order);
         when(orderItemRepository.findById(1L)).thenReturn(Optional.of(orderItem));
         when(orderItemRepository.findByOrderId(1L)).thenReturn(Arrays.asList());
         doNothing().when(orderItemRepository).delete(orderItem);

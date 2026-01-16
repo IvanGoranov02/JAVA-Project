@@ -19,7 +19,6 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -56,7 +55,7 @@ class SupplierControllerTest {
         when(supplierService.getAllSuppliers()).thenReturn(suppliers);
 
         mockMvc.perform(get("/api/suppliers")
-                        .with(httpBasic("admin", "admin123")))
+)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name").value("ABC Suppliers"));
 
@@ -69,7 +68,7 @@ class SupplierControllerTest {
         when(supplierService.getSupplierById(1L)).thenReturn(Optional.of(supplier));
 
         mockMvc.perform(get("/api/suppliers/1")
-                        .with(httpBasic("admin", "admin123")))
+)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("ABC Suppliers"));
 
@@ -82,7 +81,6 @@ class SupplierControllerTest {
         when(supplierService.createSupplier(any(Supplier.class))).thenReturn(supplier);
 
         mockMvc.perform(post("/api/suppliers")
-                        .with(httpBasic("admin", "admin123"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(supplier)))
                 .andExpect(status().isCreated())
@@ -97,7 +95,6 @@ class SupplierControllerTest {
         when(supplierService.updateSupplier(eq(1L), any(Supplier.class))).thenReturn(supplier);
 
         mockMvc.perform(put("/api/suppliers/1")
-                        .with(httpBasic("admin", "admin123"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(supplier)))
                 .andExpect(status().isOk())
@@ -112,7 +109,7 @@ class SupplierControllerTest {
         doNothing().when(supplierService).deleteSupplier(1L);
 
         mockMvc.perform(delete("/api/suppliers/1")
-                        .with(httpBasic("admin", "admin123")))
+)
                 .andExpect(status().isNoContent());
 
         verify(supplierService).deleteSupplier(1L);

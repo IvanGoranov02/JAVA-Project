@@ -18,7 +18,6 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -51,7 +50,7 @@ class CategoryControllerTest {
         when(categoryService.getAllCategories()).thenReturn(categories);
 
         mockMvc.perform(get("/api/categories")
-                        .with(httpBasic("admin", "admin123")))
+)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name").value("Sneakers"));
 
@@ -64,7 +63,7 @@ class CategoryControllerTest {
         when(categoryService.getCategoryById(1L)).thenReturn(Optional.of(category));
 
         mockMvc.perform(get("/api/categories/1")
-                        .with(httpBasic("admin", "admin123")))
+)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Sneakers"));
 
@@ -77,7 +76,7 @@ class CategoryControllerTest {
         when(categoryService.getCategoryById(1L)).thenReturn(Optional.empty());
 
         mockMvc.perform(get("/api/categories/1")
-                        .with(httpBasic("admin", "admin123")))
+)
                 .andExpect(status().isNotFound());
 
         verify(categoryService).getCategoryById(1L);
@@ -89,7 +88,6 @@ class CategoryControllerTest {
         when(categoryService.createCategory(any(Category.class))).thenReturn(category);
 
         mockMvc.perform(post("/api/categories")
-                        .with(httpBasic("admin", "admin123"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(category)))
                 .andExpect(status().isCreated())
@@ -104,7 +102,6 @@ class CategoryControllerTest {
         when(categoryService.updateCategory(eq(1L), any(Category.class))).thenReturn(category);
 
         mockMvc.perform(put("/api/categories/1")
-                        .with(httpBasic("admin", "admin123"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(category)))
                 .andExpect(status().isOk())
@@ -119,7 +116,7 @@ class CategoryControllerTest {
         doNothing().when(categoryService).deleteCategory(1L);
 
         mockMvc.perform(delete("/api/categories/1")
-                        .with(httpBasic("admin", "admin123")))
+)
                 .andExpect(status().isNoContent());
 
         verify(categoryService).deleteCategory(1L);

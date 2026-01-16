@@ -191,7 +191,9 @@ class OrderIntegrationTest {
         item1.setQuantity(1);
         item1.setUnitPrice(shoe1.getPrice());
         item1.setOrder(order);
-        orderItemRepository.save(item1);
+        // Add to order's orderItems list for cascade to work
+        order.getOrderItems().add(item1);
+        orderRepository.save(order); // Cascade will save item1
 
         Long orderId = order.getId();
         Long itemId = item1.getId();

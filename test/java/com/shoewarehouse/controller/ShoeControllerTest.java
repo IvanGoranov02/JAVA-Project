@@ -22,7 +22,6 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -68,7 +67,7 @@ class ShoeControllerTest {
         when(shoeService.getAllShoes()).thenReturn(shoes);
 
         mockMvc.perform(get("/api/shoes")
-                        .with(httpBasic("admin", "admin123")))
+)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].model").value("Air Max"));
 
@@ -81,7 +80,7 @@ class ShoeControllerTest {
         when(shoeService.getShoeById(1L)).thenReturn(Optional.of(shoe));
 
         mockMvc.perform(get("/api/shoes/1")
-                        .with(httpBasic("admin", "admin123")))
+)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.model").value("Air Max"));
 
@@ -95,7 +94,7 @@ class ShoeControllerTest {
         when(shoeService.getShoesByBrand(1L)).thenReturn(shoes);
 
         mockMvc.perform(get("/api/shoes/brand/1")
-                        .with(httpBasic("admin", "admin123")))
+)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].model").value("Air Max"));
 
@@ -109,7 +108,7 @@ class ShoeControllerTest {
         when(shoeService.getShoesByCategory(1L)).thenReturn(shoes);
 
         mockMvc.perform(get("/api/shoes/category/1")
-                        .with(httpBasic("admin", "admin123")))
+)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].model").value("Air Max"));
 
@@ -123,7 +122,7 @@ class ShoeControllerTest {
         when(shoeService.getLowStockShoes(10)).thenReturn(shoes);
 
         mockMvc.perform(get("/api/shoes/low-stock/10")
-                        .with(httpBasic("admin", "admin123")))
+)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].model").value("Air Max"));
 
@@ -136,7 +135,6 @@ class ShoeControllerTest {
         when(shoeService.createShoe(any(Shoe.class))).thenReturn(shoe);
 
         mockMvc.perform(post("/api/shoes")
-                        .with(httpBasic("admin", "admin123"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(shoe)))
                 .andExpect(status().isCreated())
@@ -151,7 +149,6 @@ class ShoeControllerTest {
         when(shoeService.updateShoe(eq(1L), any(Shoe.class))).thenReturn(shoe);
 
         mockMvc.perform(put("/api/shoes/1")
-                        .with(httpBasic("admin", "admin123"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(shoe)))
                 .andExpect(status().isOk())
@@ -166,7 +163,7 @@ class ShoeControllerTest {
         doNothing().when(shoeService).deleteShoe(1L);
 
         mockMvc.perform(delete("/api/shoes/1")
-                        .with(httpBasic("admin", "admin123")))
+)
                 .andExpect(status().isNoContent());
 
         verify(shoeService).deleteShoe(1L);

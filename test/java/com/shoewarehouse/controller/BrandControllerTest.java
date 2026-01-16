@@ -18,7 +18,6 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -51,8 +50,7 @@ class BrandControllerTest {
         List<Brand> brands = Arrays.asList(brand);
         when(brandService.getAllBrands()).thenReturn(brands);
 
-        mockMvc.perform(get("/api/brands")
-                        .with(httpBasic("admin", "admin123")))
+        mockMvc.perform(get("/api/brands"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name").value("Nike"));
 
@@ -65,7 +63,7 @@ class BrandControllerTest {
         when(brandService.getBrandById(1L)).thenReturn(Optional.of(brand));
 
         mockMvc.perform(get("/api/brands/1")
-                        .with(httpBasic("admin", "admin123")))
+)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Nike"));
 
@@ -78,7 +76,6 @@ class BrandControllerTest {
         when(brandService.createBrand(any(Brand.class))).thenReturn(brand);
 
         mockMvc.perform(post("/api/brands")
-                        .with(httpBasic("admin", "admin123"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(brand)))
                 .andExpect(status().isCreated())
@@ -93,7 +90,6 @@ class BrandControllerTest {
         when(brandService.updateBrand(eq(1L), any(Brand.class))).thenReturn(brand);
 
         mockMvc.perform(put("/api/brands/1")
-                        .with(httpBasic("admin", "admin123"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(brand)))
                 .andExpect(status().isOk())
@@ -108,7 +104,7 @@ class BrandControllerTest {
         doNothing().when(brandService).deleteBrand(1L);
 
         mockMvc.perform(delete("/api/brands/1")
-                        .with(httpBasic("admin", "admin123")))
+)
                 .andExpect(status().isNoContent());
 
         verify(brandService).deleteBrand(1L);
